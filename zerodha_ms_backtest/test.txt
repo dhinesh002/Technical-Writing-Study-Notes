@@ -1,0 +1,35 @@
+# # Example usage: Place a limit order with stop-loss for stocks
+# stock_symbols = ["NSE:TCS"]
+# limit_price = 4253  # Example limit price for buying
+# stoploss_price = 4250  # Example stop-loss trigger price
+
+# for symbol in stock_symbols:
+#     place_limit_order(symbol, quantity=1, price=limit_price, stoploss_price=stoploss_price)
+
+
+
+
+# # Fetch the closing price of a stock for a given date
+# def get_closing_price(stock_symbol, date_str):
+#     try:
+#         date = datetime.strptime(date_str, "%Y-%m-%d")
+#         start_date = date
+#         end_date = date + timedelta(days=1)
+
+#         historical_data = kite.historical_data(
+#             instrument_token=kite.ltp(stock_symbol)[stock_symbol]['instrument_token'],
+#             from_date=start_date,
+#             to_date=end_date,
+#             interval="day"
+#         )
+
+#         if historical_data:
+#             closing_price = historical_data[0]['close']
+#             return closing_price
+#         else:
+#             print(f"No data available for {stock_symbol} on {date_str}")
+#             return None
+#     except Exception as e:
+#         print(f"Error fetching closing price for {stock_symbol} on {date_str}: {e}")
+#         return None
+
