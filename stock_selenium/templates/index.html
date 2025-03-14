@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <h1>Stock Data</h1>
+    <table id="stockTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Volume</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Change %</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        // Initialize DataTable
+        const table = $('#stockTable').DataTable();
+
+        // Function to fetch and update data
+        function fetchData() {
+            $.ajax({
+                url: "/data",
+                method: "GET",
+                success: function (response) {
+                    table.clear(); // Clear existing data
+                    response.forEach(stock => {
+                        table.row.add([
+                            stock.symbol,
+                            stock.volume,
+                            stock.price,
+                            stock.change,
+                            stock.change_percentage + "%"
+                        ]);
+                    });
+                    table.draw(); // Re-draw the table
+                },
+                error: function () {
+                    alert("Failed to fetch data. Please try again.");
+                }
+            });
+        }
+
+        // Fetch data every 2 minutes
+        fetchData(); // Initial fetch
+        setInterval(fetchData, 120000); // Refresh every 2 minutes
+    </script>
+</body>
+</html>
